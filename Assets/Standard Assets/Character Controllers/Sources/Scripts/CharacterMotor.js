@@ -226,7 +226,22 @@ private function UpdateFunction () {
 	groundNormal = Vector3.zero;
 	
    	// Move our character!
-	movement.collisionFlags = controller.Move (currentMovementOffset);
+   	if(currentMovementOffset.z > 0)
+   	{
+   		
+   		currentMovementOffset.z = 0.085;
+   		/*currentMovementOffset.z = 0.75 * Mathf.Abs(currentMovementOffset.x);
+   		if(currentMovementOffset.z == 0)
+   		{
+   			currentMovementOffset.z = 0.075;
+   		}*/
+   	}
+   	else if(currentMovementOffset.z < 0)
+   	{
+   		currentMovementOffset.z = - 0.085;
+   		//currentMovementOffset.z = -0.75 * Mathf.Abs(currentMovementOffset.x);
+   	}
+	movement.collisionFlags = controller.Move (Vector3(currentMovementOffset.x, currentMovementOffset.z, 0));
 	
 	movement.lastHitPoint = movement.hitPoint;
 	lastGroundNormal = groundNormal;
@@ -241,9 +256,9 @@ private function UpdateFunction () {
 	
 	// Calculate the velocity based on the current and previous position.  
 	// This means our velocity will only be the amount the character actually moved as a result of collisions.
-	var oldHVelocity : Vector3 = new Vector3(velocity.x, 0, velocity.z);
+	var oldHVelocity : Vector3 = new Vector3(velocity.x, velocity.z, 0);
 	movement.velocity = (tr.position - lastPosition) / Time.deltaTime;
-	var newHVelocity : Vector3 = new Vector3(movement.velocity.x, 0, movement.velocity.z);
+	var newHVelocity : Vector3 = new Vector3(movement.velocity.x, movement.velocity.z, 0);
 	
 	// The CharacterController can be moved in unwanted directions when colliding with things.
 	// We want to prevent this from influencing the recorded velocity.
@@ -577,7 +592,7 @@ function MaxSpeedInDirection (desiredMovementDirection : Vector3) : float {
 
 function SetVelocity (velocity : Vector3) {
 	grounded = false;
-	movement.velocity = velocity;
+	movement.velocity = Vector3(velocity.x, velocity.z, velocity.y);
 	movement.frameVelocity = Vector3.zero;
 	SendMessage("OnExternalVelocity");
 }
