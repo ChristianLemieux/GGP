@@ -3,7 +3,13 @@
 #pragma downcast
 
 // Does this script currently respond to input?
+var health = 100;
+var lives = 5;
+var alive = true;
+var score = 0;
+var canShoot : boolean  = true;
 var canControl : boolean = true;
+var BulletPrefab:GameObject = null;
 
 var useFixedUpdate : boolean = true;
 
@@ -18,6 +24,8 @@ var inputMoveDirection : Vector3 = Vector3.zero;
 // for the jump button directly so this script can also be used by AIs.
 @System.NonSerialized
 var inputJump : boolean = false;
+
+var inputShoot : boolean = false;
 
 class CharacterMotorMovement {
 	// The maximum horizontal speed when moving
@@ -181,6 +189,16 @@ function Awake () {
 }
 
 private function UpdateFunction () {
+	
+	if(health <= 0)
+	{
+		if(lives > 0)
+		{
+			lives--;
+			health = 100;
+		}
+		else{alive = false;}
+	}
 	// We copy the actual velocity into a temporary variable that we can manipulate.
 	var velocity : Vector3 = movement.velocity;
 	
@@ -207,6 +225,11 @@ private function UpdateFunction () {
 	        // Prevent rotation of the local up vector
 	        tr.Rotate(0, yRotation, 0);
         }
+	}
+	
+	if(this.inputShoot)
+	{
+		this.FireBullet();
 	}
 	
 	// Save lastPosition for velocity calculation.
@@ -351,6 +374,7 @@ function Update () {
 		UpdateFunction();
 }
 
+
 private function ApplyInputVelocityChange (velocity : Vector3) {	
 	if (!canControl)
 		inputMoveDirection = Vector3.zero;
@@ -474,6 +498,8 @@ private function ApplyGravityAndJumping (velocity : Vector3) {
 }
 
 function OnControllerColliderHit (hit : ControllerColliderHit) {
+	health--;
+	Debug.Log("Health: " +  health);
 	if (hit.normal.y > 0 && hit.normal.y > groundNormal.y && hit.moveDirection.y < 0) {
 		if ((hit.point - movement.lastHitPoint).sqrMagnitude > 0.001 || lastGroundNormal == Vector3.zero)
 			groundNormal = hit.normal;
@@ -484,6 +510,11 @@ function OnControllerColliderHit (hit : ControllerColliderHit) {
 		movement.hitPoint = hit.point;
 		movement.frameVelocity = Vector3.zero;
 	}
+}
+
+function OnCollisionEnter(collider: Collision)
+{
+	Debug.Log("Collision");
 }
 
 private function SubtractNewPlatformVelocity () {
@@ -504,6 +535,19 @@ private function SubtractNewPlatformVelocity () {
 		}
 		movement.velocity -= movingPlatform.platformVelocity;
 	}
+}
+
+function FireBullet()
+{
+	
+		if(canShoot)
+		{
+			Debug.Log("Shoot");
+			var bullet;
+			var pos = transform.position - transform.forward * (transform.lossyScale.z/2f);
+			Debug.Log("Player position: " + pos);
+			//bullet = Instantiate(BulletPrefab, pos, Quaternion.identity);
+		}
 }
 
 private function MoveWithPlatform () : boolean {
