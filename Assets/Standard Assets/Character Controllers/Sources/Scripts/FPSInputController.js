@@ -5,6 +5,7 @@ private var motor : CharacterMotor;
 // Use this for initialization
 function Awake () {
 	motor = GetComponent(CharacterMotor);
+	var particles;
 }
 
 // Update is called once per frame
@@ -27,6 +28,25 @@ function Update () {
 		
 		// Multiply the normalized direction vector by the modified length
 		directionVector = directionVector * directionLength;
+		
+		particles = GameObject.FindGameObjectsWithTag("Fire");
+		if(Input.GetAxis("Horizontal") <= 0.01f)
+		{
+			for (var fire in particles)
+			{
+				fire.particleEmitter.emit = false;
+				
+			}
+			
+		}
+		else
+		{
+			for (var fire in particles)
+			{
+				fire.particleEmitter.emit = true;
+			}
+		
+		}
 		
 	}
 	

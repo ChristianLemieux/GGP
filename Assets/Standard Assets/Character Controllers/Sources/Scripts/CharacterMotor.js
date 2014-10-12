@@ -10,6 +10,7 @@ var score = 0;
 var canShoot : boolean  = true;
 var canControl : boolean = true;
 var BulletPrefab:GameObject = null;
+var healthText : GUIText;
 
 var useFixedUpdate : boolean = true;
 
@@ -199,6 +200,9 @@ private function UpdateFunction () {
 		}
 		else{alive = false;}
 	}
+	
+	healthText.text = "Hull Integrity: " + health + "%";
+	
 	// We copy the actual velocity into a temporary variable that we can manipulate.
 	var velocity : Vector3 = movement.velocity;
 	
