@@ -550,7 +550,7 @@ function FireBullet()
 			var bullet;
 			var pos = transform.position - transform.forward * (transform.lossyScale.z/2f);
 			Debug.Log("Player position: " + pos);
-			//bullet = Instantiate(BulletPrefab, pos, Quaternion.identity);
+			bullet = Instantiate(BulletPrefab, pos, Quaternion.identity);
 		}
 }
 

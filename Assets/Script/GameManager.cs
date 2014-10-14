@@ -35,6 +35,14 @@ public class GameManager : MonoBehaviour {
 			z = 0.0f;
 			asteroids[i].transform.position = new Vector3(x,y,z);*/
 
+			if(asteroids[i].gameObject == null){
+				xyz = new Vector3(Random.Range(0.0f,20.0f) + 55.0f, Random.Range(-5.0f, 5.0f),0);
+				GameObject temp;
+				temp = GameObject.Instantiate(Asteroid, xyz, Quaternion.identity) as GameObject;
+				temp.rigidbody.velocity = new Vector3(Random.Range(-3.5f, -3.0f), 0, 0);
+				asteroids[i] = temp;
+			}
+
 			if(asteroids[i].transform.position.x < -10.0f || asteroids[i].transform.position.x > 76.0f || asteroids[i].transform.position.y > 10.0f || asteroids[i].transform.position.y < -10.0f){
 
 				asteroids[i].transform.position = new Vector3(20.0f, Random.Range(-5.0f, 5.0f), 0.0f);
