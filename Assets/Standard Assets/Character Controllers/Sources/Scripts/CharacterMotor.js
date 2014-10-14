@@ -231,7 +231,7 @@ private function UpdateFunction () {
         }
 	}
 	
-	if(this.inputShoot)
+	if(Input.GetKeyUp("space"))
 	{
 		this.FireBullet();
 	}
@@ -543,7 +543,6 @@ private function SubtractNewPlatformVelocity () {
 
 function FireBullet()
 {
-	
 		if(canShoot)
 		{
 			Debug.Log("Shoot");
@@ -558,7 +557,6 @@ private function MoveWithPlatform () : boolean {
 	return (
 		movingPlatform.enabled
 		&& (grounded || movingPlatform.movementTransfer == MovementTransferOnJump.PermaLocked)
-		&& movingPlatform.activePlatform != null
 	);
 }
 

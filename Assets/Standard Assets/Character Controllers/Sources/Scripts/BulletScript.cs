@@ -3,7 +3,7 @@ using System.Collections;
 
 public class BulletScript : MonoBehaviour
 {
-	int lifespan = 10000;
+	int lifespan = 1000;
 	float speed = 10.0f;
 	int numBullets = 0;
 
@@ -17,7 +17,7 @@ public class BulletScript : MonoBehaviour
 	void Update ()
 	{
 		//transform.Translate(Vector3.forward * speed * Time.deltaTime);
-		float newX = transform.position.x + .075f;
+		float newX = transform.position.x + .25f;
 		float y = transform.position.y;
 		float z = transform.position.z;
 		transform.position = new Vector3(newX, y , z);
@@ -42,6 +42,7 @@ public class BulletScript : MonoBehaviour
 		{
 			lifespan = 0;
 			Destroy(other.gameObject);
+			Destroy (this.gameObject);
 			Debug.Log("collision");
 		}
 	}
