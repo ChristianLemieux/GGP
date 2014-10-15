@@ -4,7 +4,7 @@
 
 // Does this script currently respond to input?
 var health = 100;
-var lives = 5;
+var lives = 1;
 var alive = true;
 var score = 0;
 var canShoot : boolean  = true;
@@ -193,12 +193,15 @@ private function UpdateFunction () {
 	
 	if(health <= 0)
 	{
-		if(lives > 0)
+	
+		Application.LoadLevel(Application.loadedLevel + 1);
+		/*if(lives > 0)
 		{
 			lives--;
 			health = 100;
 		}
-		else{alive = false;}
+		else{alive = false;}*/
+		
 	}
 	
 	healthText.text = "Hull Integrity: " + health + "%";

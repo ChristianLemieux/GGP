@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject Asteroid;
 	private Vector3 xyz;
 	public List<GameObject> asteroids;
+	public int score = 0;
+	public GUIStyle font;
 
 	// Use this for initialization
 	void Start () {
@@ -25,7 +27,9 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
+		score ++;
 		for(int i = 0 ; i < 10; i++){
 			/*float x; 
 			x = asteroids[i].transform.position.x - Random.Range(0.01f, 0.1f);
@@ -50,6 +54,13 @@ public class GameManager : MonoBehaviour {
 
 			}
 		}
+	}
 
+	//scoring label
+	void OnGUI()
+	{
+		font.fontSize = 24;
+		font.normal.textColor = Color.white;
+		GUI.Label(new Rect(Screen.width * .05f, Screen.height * .1f, Screen.width * .45f, Screen.height * .5f),"Score: " + score.ToString(), font);
 	}
 }
