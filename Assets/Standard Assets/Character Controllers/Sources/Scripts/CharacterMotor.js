@@ -504,9 +504,10 @@ private function ApplyGravityAndJumping (velocity : Vector3) {
 	return velocity;
 }
 
-function OnControllerColliderHit (hit : ControllerColliderHit) {
+function OnControllerColliderHit (hit : ControllerColliderHit) 
+{
 	health--;
-	Debug.Log("Health: " +  health);
+	//Debug.Log("Health: " +  health);
 	if (hit.normal.y > 0 && hit.normal.y > groundNormal.y && hit.moveDirection.y < 0) {
 		if ((hit.point - movement.lastHitPoint).sqrMagnitude > 0.001 || lastGroundNormal == Vector3.zero)
 			groundNormal = hit.normal;
@@ -519,10 +520,10 @@ function OnControllerColliderHit (hit : ControllerColliderHit) {
 	}
 }
 
-function OnCollisionEnter(collider: Collision)
+/*function OnCollisionEnter(collider: Collision)
 {
-	Debug.Log("Collision");
-}
+	//Debug.Log("Collision");
+}*/
 
 private function SubtractNewPlatformVelocity () {
 	// When landing, subtract the velocity of the new ground from the character's velocity
@@ -548,10 +549,10 @@ function FireBullet()
 {
 		if(canShoot)
 		{
-			Debug.Log("Shoot");
+			//Debug.Log("Shoot");
 			var bullet;
 			var pos = transform.position - transform.forward * (transform.lossyScale.z/2f);
-			Debug.Log("Player position: " + pos);
+			//Debug.Log("Player position: " + pos);
 			bullet = Instantiate(BulletPrefab, pos, Quaternion.identity);
 		}
 }

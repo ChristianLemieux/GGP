@@ -10,7 +10,7 @@ public class InstructionsMenu : MonoBehaviour {
 	{
 		//display background texture for main menu
 		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height),backgroundTexture);
-		
+		GUI.color = Color.red;
 		//displays buttons for menu/detects if it is clicked
 		if (GUI.Button(new Rect(Screen.width * .45f, Screen.height * .8f, Screen.width *.1f, Screen.height * .1f), "Back"))
 		{

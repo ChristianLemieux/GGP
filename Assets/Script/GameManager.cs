@@ -14,13 +14,14 @@ public class GameManager : MonoBehaviour {
 
 		asteroids = new List<GameObject>();
 
-		for(int index = 0; index < 10; index++){
+		for(int index = 0; index < 25; index++){
 
 			// Create starting position for asteroids, add 55 to make sure they arrive in sync with background music
 			xyz = new Vector3(Random.Range(0.0f,20.0f) + 55.0f, Random.Range(-5.0f, 5.0f),0);
 			GameObject temp;
 			temp = GameObject.Instantiate(Asteroid, xyz, Quaternion.identity) as GameObject;
 			temp.rigidbody.velocity = new Vector3(Random.Range(-3.5f, -3.0f), 0, 0);
+			temp.rigidbody.mass = 3.0f;
 			asteroids.Add(temp);
 
 		}
@@ -30,7 +31,7 @@ public class GameManager : MonoBehaviour {
 	void Update () 
 	{
 		score ++;
-		for(int i = 0 ; i < 10; i++){
+		for(int i = 0 ; i < 25; i++){
 			/*float x; 
 			x = asteroids[i].transform.position.x - Random.Range(0.01f, 0.1f);
 			float y;
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour {
 				GameObject temp;
 				temp = GameObject.Instantiate(Asteroid, xyz, Quaternion.identity) as GameObject;
 				temp.rigidbody.velocity = new Vector3(Random.Range(-3.5f, -3.0f), 0, 0);
+				temp.rigidbody.mass = 3.0f;
 				asteroids[i] = temp;
 			}
 
@@ -51,10 +53,14 @@ public class GameManager : MonoBehaviour {
 
 				asteroids[i].transform.position = new Vector3(20.0f, Random.Range(-5.0f, 5.0f), 0.0f);
 				asteroids[i].rigidbody.velocity = new Vector3(Random.Range(-3.5f, -3.0f),0,0);
+				asteroids[i].rigidbody.mass = 3.0f;
 
 			}
+
+
 		}
 	}
+
 
 	//scoring label
 	void OnGUI()
